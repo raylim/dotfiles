@@ -30,6 +30,38 @@ Plug 'godlygeek/tabular'
 
 Plug 'ervandew/supertab'
 
+Plug 'roxma/nvim-completion-manager'
+Plug 'othree/csscomplete.vim'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
+"Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
+"Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
+Plug 'phpactor/phpactor' ,  {'do': 'composer install'}
+Plug 'roxma/ncm-phpactor'
+Plug 'roxma/ncm-rct-complete'
+Plug 'SirVer/ultisnips'
+Plug 'adoy/vim-php-refactoring-toolbox'
+"Plug 'vim-php/tagbar-phpctags.vim'
+"Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
+
+"Plug 'dkprice/vim-easygrep"'
+
+Plug 'ctrlpvim/ctrlp.vim'
+
+" php lint
+Plug 'nrocco/vim-phplint'
+
+" test suite
+Plug 'janko-m/vim-test'
+
+" debugging
+Plug 'joonty/vdebug'
+
+" json
+Plug 'elzr/vim-json'
+
 call plug#end()
 
 let mapleader = ","
@@ -94,6 +126,7 @@ set whichwrap=b,s,h,l,<,>,[,]	" backspace and cursor keys wrap to
 set scrolljump=5 				" lines to scroll when cursor leaves screen
 set scrolloff=3 				" minimum lines to keep above and below cursor
 set foldenable  				" auto fold code
+set foldmethod=indent
 set gdefault					" the /g flag on :s substitutions by default
 set nolist
 "set listchars=tab:>.,trail:.,extends:#,nbsp:. " Highlight problematic whitespace
@@ -125,3 +158,58 @@ map <C-H> <C-W>h<C-W>_
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
 
+" completion stuff
+set shortmess+=c
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
+let g:deoplete#enable_at_startup = 1
+"let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
+"let g:deoplete#ignore_sources.php = ['omni']
+set mouse=a
+
+nmap <leader>gb :Gblame<CR>
+nmap <leader>gs :Gstatus<CR>
+nmap <leader>gd :Gdiff<CR>
+nmap <leader>gl :Glog<CR>
+nmap <leader>gc :Gcommit<CR>
+nmap <leader>gp :Git push<CR>
+nmap <leader>gw :Gw<CR>
+nmap <leader>gg :Ggrep <cword><CR>
+
+nmap <leader>tt :TagbarToggle<CR>
+
+nmap <silent> <leader>tn :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>ta :TestSuite<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>tg :TestVisit<CR>
+
+" json tool
+nmap <silent> <leader>j :%!python -m json.tool<CR>
+
+" ctrl-p
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+
+let g:vdebug_keymap = {
+\    "run" : "<Leader>v",
+\    "run_to_cursor" : "<Down>",
+\    "step_over" : "<Up>",
+\    "step_into" : "<Left>",
+\    "step_out" : "<Right>",
+\    "close" : "q",
+\    "detach" : "<F7>",
+\    "set_breakpoint" : "<Leader>s",
+\    "eval_visual" : "<Leader>e"
+\}
+
+if !exists('g:vdebug_options')
+    let g:vdebug_options = {}
+endif
+let g:vdebug_options['path_maps'] = {
+\    '/var/www/dashboard' : '/Users/raymondlim/mgtl/dashboard/git/mssmdashboard'
+\}
+
+noremap <leader>p :Phplint<CR>
+
+"command -nargs=+ Ggr execute 'silent Ggrep!' <q-args> | cw | redraw!
