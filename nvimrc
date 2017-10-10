@@ -62,6 +62,9 @@ Plug 'joonty/vdebug'
 " json
 Plug 'elzr/vim-json'
 
+Plug 'shougo/vimshell.vim'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+
 call plug#end()
 
 let mapleader = ","
@@ -211,5 +214,15 @@ let g:vdebug_options['path_maps'] = {
 \}
 
 noremap <leader>p :Phplint<CR>
+
+" vimshell
+map <leader>sS <Plug>(vimshell_split_switch)
+map <leader>sC <Plug>(vimshell_split_create)
+map <leader>ss <Plug>(vimshell_switch)
+map <leader>sc <Plug>(vimshell_create)
+map <leader>se <Plug>(vimshell_enter)
+map <leader>sp <Plug>(vimshell_paste_prompt)
+
+
 
 "command -nargs=+ Ggr execute 'silent Ggrep!' <q-args> | cw | redraw!
