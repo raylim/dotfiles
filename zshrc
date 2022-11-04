@@ -8,8 +8,10 @@ umask 002
 export EDITOR=nvim
 export PAGER=less
 set -o vi
+export CLICOLOR=1
+export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
+alias ll="ls -alG"
 alias ls='ls -FG'
-alias ll='ls -l'
 alias lt='ls -t'
 alias h='history'
 #alias rm='rm -i'
